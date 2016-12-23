@@ -1,0 +1,5 @@
+tmp/
+flask/
+db_reposiitory/
+__pycache__/
+app.db
