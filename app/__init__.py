@@ -1,11 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import basedir, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
+from flask_mail import Mail
 
 myapp = Flask(__name__)
 myapp.config.from_object('config')
 db = SQLAlchemy(myapp)
-
+mail = Mail(myapp)
 import os
 from flask_login import LoginManager
 from flask_openid import OpenID
