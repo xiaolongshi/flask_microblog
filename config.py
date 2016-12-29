@@ -16,14 +16,14 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True
 DEBUG = True
 # mail server settings
 MAIL_SERVER = "smtp.gmail.com"
-MAIL_PORT = 465
-MAIL_USE_TLS = False
-MAIL_USE_SSL = True
+MAIL_PORT = 587
+MAIL_USE_TLS = True
+MAIL_USE_SSL = False
 MAIL_USERNAME = "ziguangtest@gmail.com" # os.environ.get('MAIL_USERNAME')
 MAIL_PASSWORD = "ziguangzhiye2011" # os.environ.get('MAIL_PASSWORD')
 
 # administrator list
-ADMINS = ['ziguangzhiye@gmail.com']
+ADMINS = ['ziguangtest@gmail.com']
 
 # pagination
 POSTS_PER_PAGE = 3
