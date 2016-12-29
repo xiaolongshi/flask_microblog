@@ -5,6 +5,7 @@ from .forms import LoginForm, EditForm, PostForm, SearchForm
 from .models import User, Post
 from datetime import datetime
 from config import POSTS_PER_PAGE
+from .emails import follower_notification
 
 @myapp.route('/', methods=['GET', 'POST'])
 @myapp.route('/index', methods=['GET', 'POST'])

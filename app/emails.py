@@ -3,7 +3,7 @@ from app import mail
 from flask import render_template
 from config import ADMINS
 from threading import Thread
-from ap import myapp
+from app import myapp
 from .decorators import async
 
 @async
