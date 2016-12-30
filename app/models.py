@@ -1,6 +1,6 @@
 from app import db, myapp
 from hashlib import md5
-
+import re
 import flask_whooshalchemy as whooshalchemy
 
 followers = db.Table('followers',
@@ -62,6 +62,7 @@ class User(db.Model):
             .follower_id == self.id).order_by(Post.timestamp.desc())
 
     #make the nickname unique
+    @staticmethod
     def make_unique_nickname(nickname):
         if User.query.filter_by(nickname=nickname).first() is None:
             return nickname
@@ -72,6 +73,10 @@ class User(db.Model):
                 break
             version += 1
         return new_nickname
+    #
+    @staticmethod
+    def make_valid_nickname(nickname):
+        return re.sub('[^a-zA-Z0-9_\.]', '', nickname)
 class Post(db.Model):
     __searchable__ = ['body']
 

@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from config import basedir, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
 from flask_mail import Mail
 from .momentjs import momentjs
+from flask_babel import lazy_gettext
 
 myapp = Flask(__name__)
 myapp.config.from_object('config')
@@ -40,4 +41,7 @@ if not myapp.debug:
     file_handler.setLevel(logging.INFO)
     myapp.logger.addHandler(file_handler)
     myapp.logger.info('microblog startup')
+from flask_babel import Babel
+babel = Babel(myapp)
+loginmanager.login_message = lazy_gettext('Please log in to this page.')
 from app import views, models
