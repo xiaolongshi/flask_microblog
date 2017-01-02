@@ -39,3 +39,11 @@ LANGUAGES = {
         'en': 'English',
         'zh_CN': 'Chinese'
         }
+
+# micorsoft translation service
+MS_TRANSLATOR_CLIENT_ID = ''
+MS_TRANSLATOR_CLIENT_SECRET = ''
+
+# baidu translation service
+BAIDU_TRANSLATOR_CLIENT_ID = ''
+BAIDU_TRANSLATOR_CLIENT_SECRET = ''

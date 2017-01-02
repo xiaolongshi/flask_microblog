@@ -8,6 +8,9 @@ from config import POSTS_PER_PAGE, LANGUAGES
 from .emails import follower_notification
 from app import babel
 from flask_babel import gettext
+from guess_language import guess_language
+from flask import jsonify
+from .translate import microsoft_translate
 
 @myapp.route('/', methods=['GET', 'POST'])
 @myapp.route('/index', methods=['GET', 'POST'])
@@ -16,7 +19,14 @@ from flask_babel import gettext
 def index(page=1):
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.post.data, timestamp=datetime.utcnow(), author=g.user)
+        language = guess_language(form.post.data)
+        if language == 'UNKNOWN' or len(language) > 5:
+            language = ''
+        print("language " + language)
+        post = Post(body=form.post.data, 
+                    timestamp=datetime.utcnow(), 
+                    author=g.user,
+                    language=language)
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')
@@ -179,3 +189,15 @@ def search_results(query):
 @babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(LANGUAGES.keys())
+
+@myapp.route('/translate', methods=['POST'])
+@login_required
+def translate():
+    sourceLang = request.form['sourceLang']
+    destLang = request.form['destLang']
+    sourceLangT = sourceLang.replace('_', '-')
+    destLangT = destLang.replace('_','-')
+    return jsonify({
+        'text': microsoft_translate(request.form['text'],
+                                    sourceLangT,
+                                    destLangT) })
